@@ -1,7 +1,13 @@
+"""
+Научите бота играть в города. Правила такие - внутри бота есть список городов, пользователь пишет /cities Москва и если в списке такой город есть, бот отвечает городом на букву "а" - "Альметьевск, ваш ход". Оба города должны удаляться из списка.
+
+Помните, с ботом могут играть несколько пользователей одновременно
+"""
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import settings
 import cities
+
 
 logging.basicConfig(filename="bot.log", level=logging.INFO)
 def greet_user(update,context):
@@ -28,11 +34,7 @@ def city_game(update, context):
         for city in game_list:
             if city[0] == letter:
                 bot_city = city
-                update.message.reply_text(f'{bot_city} , ваш ход')
-                break
-
-
-                  
+                return update.message.reply_text(f'{bot_city} , ваш ход')                                
     else:
         update.message.reply_text('Нет такого города')  
 
